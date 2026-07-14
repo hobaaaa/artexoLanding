@@ -6,6 +6,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
+  --font-sans: Arial, Helvetica, sans-serif;
+
   /* Colors */
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
@@ -118,8 +120,8 @@
 
 :root {
   /* Accent colors */
-  --brand: oklch(66.5% 0.1804 47.04);
-  --brand-foreground: oklch(75.77% 0.159 55.91);
+  --brand: oklch(62% 0.2 250);
+  --brand-foreground: oklch(72% 0.17 245);
 
   /* Customized shadcn/ui colors */
   --background: oklch(97.65% 0.001 17.18);
@@ -128,7 +130,7 @@
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(66.5% 0.1804 47.04);
+  --primary: oklch(62% 0.2 250);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
@@ -167,8 +169,8 @@
 
 .dark {
   /* Accent colors */
-  --brand: oklch(83.6% 0.1177 66.87);
-  --brand-foreground: oklch(75.77% 0.159 55.91);
+  --brand: oklch(69% 0.18 248);
+  --brand-foreground: oklch(72% 0.17 245);
 
   /* Customized shadcn/ui colors */
   --background: oklch(0.141 0.005 285.823);
@@ -177,8 +179,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.141 0.005 285.823);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.21 0.006 285.885);
+  --primary: oklch(69% 0.18 248);
+  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.274 0.006 286.033);
@@ -219,5 +221,148 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(34px) scale(0.985);
+    filter: blur(8px);
+    transition:
+      opacity 720ms ease,
+      transform 720ms ease,
+      filter 720ms ease;
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  .reveal .flow-card,
+  .reveal .flow-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 620ms ease,
+      transform 620ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      background-color 220ms ease;
+  }
+
+  .reveal.is-visible .flow-card,
+  .reveal.is-visible .flow-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal.is-visible .flow-card:nth-child(2),
+  .reveal.is-visible .flow-item:nth-child(2) {
+    transition-delay: 90ms;
+  }
+
+  .reveal.is-visible .flow-card:nth-child(3),
+  .reveal.is-visible .flow-item:nth-child(3) {
+    transition-delay: 180ms;
+  }
+
+  .reveal.is-visible .flow-card:nth-child(4),
+  .reveal.is-visible .flow-item:nth-child(4) {
+    transition-delay: 270ms;
+  }
+
+  .reveal.is-visible .flow-card:nth-child(5),
+  .reveal.is-visible .flow-item:nth-child(5) {
+    transition-delay: 360ms;
+  }
+
+  .float-panel {
+    animation: float-panel 7s ease-in-out infinite;
+  }
+
+  .flow-card {
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      background-color 220ms ease;
+  }
+
+  .flow-card:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in oklch, var(--brand) 55%, var(--border));
+    box-shadow: 0 24px 70px var(--shadow-strong);
+  }
+
+  .shine-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      color-mix(in oklch, var(--brand) 28%, transparent) 45%,
+      transparent 62%
+    );
+    opacity: 0;
+    transform: translateX(-120%);
+    transition:
+      opacity 220ms ease,
+      transform 700ms ease;
+  }
+
+  .shine-border:hover::before {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  .pulse-dot {
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+
+  @keyframes float-panel {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(0.92);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal .flow-card,
+    .reveal .flow-item,
+    .float-panel,
+    .pulse-dot {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
   }
 }

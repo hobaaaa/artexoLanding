@@ -11,6 +11,7 @@ import LaunchUI from "../../logos/launch-ui";
 import { Button, buttonVariants } from "../../ui/button";
 import {
   Navbar as NavbarComponent,
+  NavbarCenter,
   NavbarLeft,
   NavbarRight,
 } from "../../ui/navbar";
@@ -68,7 +69,7 @@ export default function Navbar({
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
       <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
       <div className="max-w-container relative mx-auto">
-        <NavbarComponent>
+        <NavbarComponent className="grid grid-cols-[1fr_auto_1fr] gap-4">
           <NavbarLeft>
             <a
               href={homeUrl}
@@ -77,8 +78,10 @@ export default function Navbar({
               {logo}
               {name}
             </a>
-            {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
+          <NavbarCenter>
+            {showNavigation && (customNavigation || <Navigation />)}
+          </NavbarCenter>
           <NavbarRight>
             {actions.map((action) =>
               action.isButton ? (
@@ -121,6 +124,7 @@ export default function Navbar({
                     href={homeUrl}
                     className="flex items-center gap-2 text-xl font-bold"
                   >
+                    {logo}
                     <span>{name}</span>
                   </a>
                   {mobileLinks.map((link) => (

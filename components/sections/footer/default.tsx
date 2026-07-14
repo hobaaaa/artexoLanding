@@ -73,7 +73,7 @@ export default function FooterSection({
       <div className="max-w-container mx-auto">
         <Footer>
           <FooterContent>
-            <FooterColumn className="col-span-2 sm:col-span-3 md:col-span-1">
+            <FooterColumn className="sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-2">
                 {logo}
                 <h3 className="text-xl font-bold">{name}</h3>
@@ -96,14 +96,16 @@ export default function FooterSection({
           </FooterContent>
           <FooterBottom>
             <div>{copyright}</div>
-            <div className="flex items-center gap-4">
-              {policies.map((policy) => (
-                <a key={`${policy.href}-${policy.text}`} href={policy.href}>
-                  {policy.text}
-                </a>
-              ))}
-              {showModeToggle && <ModeToggle />}
-            </div>
+            {(policies.length > 0 || showModeToggle) && (
+              <div className="flex items-center gap-4">
+                {policies.map((policy) => (
+                  <a key={`${policy.href}-${policy.text}`} href={policy.href}>
+                    {policy.text}
+                  </a>
+                ))}
+                {showModeToggle && <ModeToggle />}
+              </div>
+            )}
           </FooterBottom>
         </Footer>
       </div>

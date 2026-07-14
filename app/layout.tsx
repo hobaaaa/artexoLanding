@@ -3,59 +3,72 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 
-import { inter } from "@/lib/fonts";
-
 import { siteConfig } from "../config/site";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
     template: `%s - ${siteConfig.name}`,
   },
   metadataBase: new URL(siteConfig.url),
   description: siteConfig.description,
   keywords: [
-    "Landing page template",
-    "Components",
-    "Shadcn",
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Radix UI",
+    "Artexo",
+    "artexoApp",
+    "online randevu sistemi",
+    "kuafor randevu sistemi",
+    "guzellik merkezi randevu",
+    "klinik randevu programi",
+    "psikolog randevu sistemi",
+    "diyetisyen randevu",
+    "personel mesai yonetimi",
   ],
   authors: [
     {
-      name: "Mikolaj Dobrucki",
-      url: "https://mikolajdobrucki.com",
+      name: "artexoApp",
+      url: siteConfig.url,
     },
   ],
-  creator: "mikolajdobrucki",
+  creator: "artexoApp",
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "tr_TR",
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
       {
         url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
+        width: 1536,
+        height: 1024,
         alt: siteConfig.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@mikolajdobrucki",
   },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/apple-touch-icon.png",
+    icon: "/artexo-icon.png",
+    apple: "/artexo-icon.png",
   },
 };
 
@@ -66,12 +79,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="tr"
       className="dark"
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
-      <body className={`${inter.variable} bg-background font-sans antialiased`}>
+      <body className="bg-background font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
