@@ -1,14 +1,14 @@
 export const siteConfig = {
   name: "artexoApp",
-  url: "https://artexo.app",
+  url: "https://www.artexo.app",
   getStartedUrl: "#iletisim",
   ogImage: "/artexo-logo.png",
   description:
     "artexoApp; kuaforler, guzellik merkezleri, klinikler, psikologlar ve diyetisyenler icin gelistirilmis akilli online randevu platformudur.",
   version: "v1.0",
   links: {
-    twitter: "https://artexo.app",
-    github: "https://artexo.app",
+    twitter: "https://www.artexo.app",
+    github: "https://www.artexo.app",
     email: "mailto:info@artexo.app",
   },
   pricing: {

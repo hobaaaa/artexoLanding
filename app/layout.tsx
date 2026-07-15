@@ -7,7 +7,7 @@ import { siteConfig } from "../config/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
+    default: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
     template: `%s - ${siteConfig.name}`,
   },
   metadataBase: new URL(siteConfig.url),
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     "Artexo",
     "artexoApp",
     "online randevu sistemi",
-    "kuafor randevu sistemi",
-    "guzellik merkezi randevu",
-    "klinik randevu programi",
+    "kuaför randevu sistemi",
+    "güzellik merkezi randevu",
+    "klinik randevu programı",
     "psikolog randevu sistemi",
     "diyetisyen randevu",
-    "personel mesai yonetimi",
+    "personel mesai yönetimi",
   ],
   authors: [
     {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "tr_TR",
     url: siteConfig.url,
-    title: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
+    title: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1536,
         height: 1024,
-        alt: siteConfig.name,
+        alt: "artexoApp online randevu ve işletme yönetimi platformu logosu",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "artexoApp | Akilli randevu ve isletme yonetimi platformu",
+    title: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },

@@ -22,6 +22,7 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { LayoutLines } from "../components/ui/layout-lines";
 import { Section } from "../components/ui/section";
+import { siteConfig } from "../config/site";
 
 const navigationLinks = [
   { text: "Sorun ve Çözüm", href: "#cozum" },
@@ -79,19 +80,73 @@ const audiences = [
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "artexoApp",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  description:
-    "artexoApp; kuaförler, güzellik merkezleri, klinikler, psikologlar ve diyetisyenler için geliştirilmiş akıllı online randevu platformudur.",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: "artexoApp",
+      url: siteConfig.url,
+      logo: `${siteConfig.url}/artexo-logo.png`,
+      email: "info@artexo.app",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: "artexoApp",
+      url: siteConfig.url,
+      publisher: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
+      inLanguage: "tr-TR",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteConfig.url}/#software`,
+      name: "artexoApp",
+      url: siteConfig.url,
+      image: `${siteConfig.url}/artexo-logo.png`,
+      applicationCategory: "BusinessApplication",
+      applicationSubCategory: "OnlineAppointmentScheduling",
+      operatingSystem: "Web, iOS, Android",
+      description:
+        "artexoApp; kuaförler, güzellik merkezleri, klinikler, psikologlar ve diyetisyenler için geliştirilmiş akıllı online randevu ve işletme yönetimi platformudur.",
+      provider: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "TRY",
+        url: `${siteConfig.url}/#iletisim`,
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/#service`,
+      name: "artexoApp B2B Online Randevu Hizmeti",
+      serviceType: "B2B online randevu ve personel mesai yönetimi yazılımı",
+      provider: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Türkiye",
+      },
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType:
+          "Kuaförler, berberler, güzellik merkezleri, klinikler, psikologlar ve diyetisyenler",
+      },
+      url: `${siteConfig.url}/#iletisim`,
+    },
+  ],
 };
 
 function ArtexoLogo({ className = "" }: { className?: string }) {
   return (
     <Image
       src="/artexo-logo.png"
-      alt="artexoApp"
+      alt="artexoApp online randevu sistemi ve işletme yönetimi logosu"
       width={220}
       height={88}
       priority
@@ -107,7 +162,7 @@ function AppointmentPreview() {
         <div className="flex items-center gap-3">
           <Image
             src="/artexo-icon.png"
-            alt="artexoApp ikon"
+            alt="artexoApp Güzellik Merkezi Randevu Paneli Önizlemesi"
             width={44}
             height={44}
             className="rounded-md"
@@ -230,7 +285,7 @@ export default function Home() {
           <div className="flex max-w-5xl flex-col items-center gap-5">
             <Image
               src="/artexo-logo.png"
-              alt="artexoApp"
+              alt="artexoApp kuaför ve güzellik merkezi randevu sistemi logosu"
               width={300}
               height={120}
               priority
