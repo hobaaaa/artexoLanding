@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+import BlogCard from "../components/blog-card";
 import ContactForm from "../components/contact-form";
 import Reveal from "../components/reveal";
 import Footer from "../components/sections/footer/default";
@@ -23,12 +24,14 @@ import { Button } from "../components/ui/button";
 import { LayoutLines } from "../components/ui/layout-lines";
 import { Section } from "../components/ui/section";
 import { siteConfig } from "../config/site";
+import { getBlogPosts } from "../sanity/fetch";
 
 const navigationLinks = [
   { text: "Sorun ve Çözüm", href: "#cozum" },
   { text: "Özellikler", href: "#ozellikler" },
   { text: "Kimler İçin", href: "#kimler-icin" },
   { text: "Nasıl Çalışır", href: "#nasil-calisir" },
+  { text: "Blog", href: "/blog" },
   { text: "Demo İste", href: "#iletisim" },
 ];
 
@@ -240,7 +243,9 @@ function AppointmentPreview() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const latestPosts = await getBlogPosts(3);
+
   return (
     <main className="min-h-screen w-full bg-background text-foreground">
       <script
@@ -472,6 +477,33 @@ export default function Home() {
         </Section>
       </section>
 
+      {latestPosts.length > 0 && (
+        <section id="blog">
+          <Section>
+            <Reveal className="mx-auto flex max-w-container flex-col gap-9">
+              <div className="mx-auto max-w-3xl text-center">
+                <Badge variant="outline" className="mb-4">
+                  artexoApp Blog
+                </Badge>
+                <h2 className="text-3xl leading-tight font-semibold sm:text-5xl sm:leading-tight">
+                  Randevu ve işletme yönetimi için pratik büyüme rehberleri.
+                </h2>
+                <p className="mt-5 text-lg leading-8 text-muted-foreground">
+                  Yeni yazılar yayınlandıkça burada öne çıkar; artexoApp ile
+                  dijital randevu akışını büyütmek isteyen işletmeler için
+                  uygulanabilir içerikler sunar.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {latestPosts.map((post) => (
+                  <BlogCard key={post._id} post={post} />
+                ))}
+              </div>
+            </Reveal>
+          </Section>
+        </section>
+      )}
+
       <section id="iletisim">
         <Section className="group relative overflow-hidden">
           <Reveal className="relative z-10 mx-auto grid max-w-container gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
@@ -516,6 +548,7 @@ export default function Home() {
             links: [
               { text: "Sorun ve Çözüm", href: "#cozum" },
               { text: "Özellikler", href: "#ozellikler" },
+              { text: "Blog", href: "/blog" },
               { text: "Nasıl Çalışır", href: "#nasil-calisir" },
             ],
           },
