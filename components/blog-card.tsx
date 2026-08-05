@@ -26,9 +26,9 @@ export default function BlogCard({ post }: { post: BlogPost }) {
             post.coverImage.alt ||
             `${post.title} artexoApp online randevu sistemi blog görseli`
           }
-          width={post.coverImage.asset.metadata?.dimensions?.width || 1200}
-          height={post.coverImage.asset.metadata?.dimensions?.height || 675}
-          className="mb-5 aspect-[16/9] w-full rounded-md object-cover"
+          width={post.coverImage.asset.metadata?.dimensions?.width || 1536}
+          height={post.coverImage.asset.metadata?.dimensions?.height || 1024}
+          className="mb-5 aspect-[3/2] w-full rounded-md bg-muted/20 object-contain"
         />
       )}
       <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">

@@ -163,9 +163,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 post.coverImage.alt ||
                 `${post.title} artexoApp online randevu sistemi blog kapak görseli`
               }
-              width={post.coverImage.asset.metadata?.dimensions?.width || 1200}
-              height={post.coverImage.asset.metadata?.dimensions?.height || 675}
-              className="my-10 aspect-[16/9] w-full rounded-md object-cover shadow-2xl"
+              width={post.coverImage.asset.metadata?.dimensions?.width || 1536}
+              height={post.coverImage.asset.metadata?.dimensions?.height || 1024}
+              className="my-10 aspect-[3/2] w-full rounded-md bg-muted/20 object-contain shadow-2xl"
             />
           )}
           <PortableText value={post.body} />
