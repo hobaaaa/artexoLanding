@@ -65,7 +65,7 @@ async function sanityQuery<T>(
       },
       body: JSON.stringify({ query, params }),
       next: {
-        revalidate: 3600,
+        revalidate: 60,
       },
     });
 
