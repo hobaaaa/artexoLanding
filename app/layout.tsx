@@ -1,28 +1,18 @@
-import "@/app/globals.css";
+﻿import "@/app/globals.css";
 
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 
 import { siteConfig } from "../config/site";
+import { isLocale } from "../dictionaries/i18n";
 
 export const metadata: Metadata = {
   title: {
-    default: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
+    default: "artexoApp | Smart appointment and business management platform",
     template: `%s - ${siteConfig.name}`,
   },
   metadataBase: new URL(siteConfig.url),
   description: siteConfig.description,
-  keywords: [
-    "Artexo",
-    "artexoApp",
-    "online randevu sistemi",
-    "kuaför randevu sistemi",
-    "güzellik merkezi randevu",
-    "klinik randevu programı",
-    "psikolog randevu sistemi",
-    "diyetisyen randevu",
-    "personel mesai yönetimi",
-  ],
   authors: [
     {
       name: "artexoApp",
@@ -30,9 +20,6 @@ export const metadata: Metadata = {
     },
   ],
   creator: "artexoApp",
-  alternates: {
-    canonical: siteConfig.url,
-  },
   robots: {
     index: true,
     follow: true,
@@ -44,42 +31,25 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    locale: "tr_TR",
-    url: siteConfig.url,
-    title: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1536,
-        height: 1024,
-        alt: "artexoApp online randevu ve işletme yönetimi platformu logosu",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "artexoApp | Akıllı randevu ve işletme yönetimi platformu",
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-  },
   icons: {
     icon: "/artexo-icon.png",
     apple: "/artexo-icon.png",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale?: string }>;
 }>) {
+  const { locale } = await params;
+  const htmlLang = isLocale(locale || "") ? locale : "tr";
+
   return (
     <html
-      lang="tr"
+      lang={htmlLang}
       className="dark"
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning

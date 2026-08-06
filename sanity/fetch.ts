@@ -1,5 +1,11 @@
+﻿import { type Locale } from "../dictionaries/i18n";
 import { hasSanityConfig, sanityEnv } from "./env";
-import { postBySlugQuery, postListQuery, postSlugsQuery } from "./queries";
+import {
+  allPostSlugsQuery,
+  postBySlugQuery,
+  postListQuery,
+  postSlugsQuery,
+} from "./queries";
 
 export interface SanityImage {
   alt?: string;
@@ -34,6 +40,7 @@ export interface BlogPost {
   _id: string;
   title: string;
   slug: string;
+  language?: Locale;
   excerpt?: string;
   publishedAt?: string;
   coverImage?: SanityImage;
@@ -80,18 +87,30 @@ async function sanityQuery<T>(
   }
 }
 
-export async function getBlogPosts(limit?: number) {
-  const posts = await sanityQuery<BlogPost[]>(postListQuery);
+export async function getBlogPosts(locale: Locale, limit?: number) {
+  const posts = await sanityQuery<BlogPost[]>(postListQuery, {
+    language: locale,
+  });
   const safePosts = posts ?? [];
 
   return typeof limit === "number" ? safePosts.slice(0, limit) : safePosts;
 }
 
-export async function getBlogPost(slug: string) {
-  return sanityQuery<BlogPost>(postBySlugQuery, { slug });
+export async function getBlogPost(locale: Locale, slug: string) {
+  return sanityQuery<BlogPost>(postBySlugQuery, { language: locale, slug });
 }
 
-export async function getBlogSlugs() {
-  const slugs = await sanityQuery<Array<{ slug: string }>>(postSlugsQuery);
+export async function getBlogSlugs(locale: Locale) {
+  const slugs = await sanityQuery<Array<{ slug: string; language?: Locale }>>(
+    postSlugsQuery,
+    { language: locale },
+  );
+  return slugs ?? [];
+}
+
+export async function getAllBlogSlugs() {
+  const slugs = await sanityQuery<Array<{ slug: string; language: Locale }>>(
+    allPostSlugsQuery,
+  );
   return slugs ?? [];
 }

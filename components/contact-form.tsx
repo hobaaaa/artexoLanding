@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ArrowRightIcon, CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { FormEvent, useState } from "react";
@@ -7,7 +7,26 @@ import { Button } from "./ui/button";
 
 type SubmitState = "idle" | "loading" | "success" | "error";
 
-export default function ContactForm() {
+export interface ContactFormText {
+  name: string;
+  namePlaceholder: string;
+  phone: string;
+  phonePlaceholder: string;
+  businessType: string;
+  businessTypePlaceholder: string;
+  businessOptions: string[];
+  businessName: string;
+  businessNamePlaceholder: string;
+  note: string;
+  notePlaceholder: string;
+  submit: string;
+  sending: string;
+  success: string;
+  successMessage: string;
+  errorMessage: string;
+}
+
+export default function ContactForm({ text }: { text: ContactFormText }) {
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
 
@@ -40,12 +59,12 @@ export default function ContactForm() {
 
     if (!response.ok) {
       setState("error");
-      setMessage(result?.message || "Form gönderilemedi. Tekrar deneyin.");
+      setMessage(result?.message || text.errorMessage);
       return;
     }
 
     setState("success");
-    setMessage(result?.message || "Demo talebiniz alındı.");
+    setMessage(result?.message || text.successMessage);
     form.reset();
   }
 
@@ -63,25 +82,25 @@ export default function ContactForm() {
       />
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium">
-          Ad Soyad
+          {text.name}
           <input
             name="name"
             required
             className="h-11 rounded-md border bg-background px-3 outline-hidden focus:ring-1 focus:ring-ring"
-            placeholder="Adınız Soyadınız"
+            placeholder={text.namePlaceholder}
           />
         </label>
         <label className="grid gap-2 text-sm font-medium">
-          Telefon
+          {text.phone}
           <input
             name="phone"
             required
             className="h-11 rounded-md border bg-background px-3 outline-hidden focus:ring-1 focus:ring-ring"
-            placeholder="05xx xxx xx xx"
+            placeholder={text.phonePlaceholder}
           />
         </label>
         <label className="grid gap-2 text-sm font-medium">
-          İşletme Türü
+          {text.businessType}
           <select
             name="businessType"
             required
@@ -89,31 +108,29 @@ export default function ContactForm() {
             defaultValue=""
           >
             <option value="" disabled>
-              Seçiniz
+              {text.businessTypePlaceholder}
             </option>
-            <option>Berber / Kuaför</option>
-            <option>Güzellik Merkezi</option>
-            <option>Psikolog / Klinik</option>
-            <option>Diyetisyen</option>
-            <option>Diğer</option>
+            {text.businessOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
           </select>
         </label>
         <label className="grid gap-2 text-sm font-medium">
-          İşletme Adı
+          {text.businessName}
           <input
             name="businessName"
             className="h-11 rounded-md border bg-background px-3 outline-hidden focus:ring-1 focus:ring-ring"
-            placeholder="İşletmenizin adı"
+            placeholder={text.businessNamePlaceholder}
           />
         </label>
       </div>
       <label className="mt-4 grid gap-2 text-sm font-medium">
-        Kısa Not
+        {text.note}
         <textarea
           name="note"
           rows={4}
           className="rounded-md border bg-background px-3 py-3 outline-hidden focus:ring-1 focus:ring-ring"
-          placeholder="Kaç personeliniz var, hangi hizmetleri veriyorsunuz?"
+          placeholder={text.notePlaceholder}
         />
       </label>
       <Button
@@ -125,16 +142,16 @@ export default function ContactForm() {
         {state === "loading" ? (
           <>
             <Loader2Icon className="mr-1 size-4 animate-spin" />
-            Gönderiliyor
+            {text.sending}
           </>
         ) : state === "success" ? (
           <>
             <CheckCircle2Icon className="mr-1 size-4" />
-            Talep Alındı
+            {text.success}
           </>
         ) : (
           <>
-            Demo Talebi Gönder
+            {text.submit}
             <ArrowRightIcon className="ml-1 size-4" />
           </>
         )}

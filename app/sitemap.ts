@@ -1,12 +1,35 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 import { siteConfig } from "../config/site";
-import { getBlogSlugs } from "../sanity/fetch";
+import { getLocalizedPath, locales } from "../dictionaries/i18n";
+import { getAllBlogSlugs } from "../sanity/fetch";
+
+function fullUrl(path: string) {
+  return `${siteConfig.url}${path}`;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const blogUrls = (await getBlogSlugs()).map(({ slug }) => ({
-    url: `${siteConfig.url}/blog/${slug}`,
-    lastModified: new Date(),
+  const now = new Date();
+  const blogSlugs = await getAllBlogSlugs();
+
+  const localizedPages = locales.flatMap((locale) => [
+    {
+      url: fullUrl(getLocalizedPath(locale)),
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: locale === "tr" ? 1 : 0.95,
+    },
+    {
+      url: fullUrl(getLocalizedPath(locale, "/blog")),
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+  ]);
+
+  const blogUrls = blogSlugs.map(({ language, slug }) => ({
+    url: fullUrl(getLocalizedPath(language, `/blog/${slug}`)),
+    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
@@ -14,16 +37,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: siteConfig.url,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
-      priority: 1,
+      priority: 0.9,
     },
-    {
-      url: `${siteConfig.url}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+    ...localizedPages,
     ...blogUrls,
   ];
 }

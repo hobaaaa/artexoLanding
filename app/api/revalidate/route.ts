@@ -1,8 +1,11 @@
-import { revalidatePath } from "next/cache";
+﻿import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+
+import { isLocale, type Locale,locales } from "../../../dictionaries/i18n";
 
 type RevalidatePayload = {
   _type?: string;
+  language?: string;
   slug?: {
     current?: string;
   };
@@ -24,12 +27,21 @@ export async function POST(request: Request) {
     payload = {};
   }
 
+  const targetLocales: Locale[] = isLocale(payload.language || "")
+    ? [payload.language as Locale]
+    : [...locales];
+
   revalidatePath("/");
   revalidatePath("/blog");
   revalidatePath("/sitemap.xml");
 
-  if (payload._type === "post" && payload.slug?.current) {
-    revalidatePath(`/blog/${payload.slug.current}`);
+  for (const locale of targetLocales) {
+    revalidatePath(`/${locale}`);
+    revalidatePath(`/${locale}/blog`);
+
+    if (payload._type === "post" && payload.slug?.current) {
+      revalidatePath(`/${locale}/blog/${payload.slug.current}`);
+    }
   }
 
   return NextResponse.json({

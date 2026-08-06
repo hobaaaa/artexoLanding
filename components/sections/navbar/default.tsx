@@ -40,6 +40,7 @@ interface NavbarProps {
   actions?: NavbarActionProps[];
   showNavigation?: boolean;
   customNavigation?: ReactNode;
+  rightSlot?: ReactNode;
   className?: string;
 }
 
@@ -63,6 +64,7 @@ export default function Navbar({
   ],
   showNavigation = true,
   customNavigation,
+  rightSlot,
   className,
 }: NavbarProps) {
   return (
@@ -83,6 +85,7 @@ export default function Navbar({
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarCenter>
           <NavbarRight>
+            {rightSlot}
             {actions.map((action) =>
               action.isButton ? (
                 <Button
