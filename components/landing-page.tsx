@@ -216,7 +216,12 @@ export default function LandingPage({
       <StructuredData locale={locale} t={t} />
       <LayoutLines />
       <Navbar
-        logo={<ArtexoLogo className="h-16 w-auto md:h-20" alt={t.hero.logoAlt} />}
+        logo={
+          <ArtexoLogo
+            className="h-14 w-auto sm:h-16 md:h-20"
+            alt={t.hero.logoAlt}
+          />
+        }
         name=""
         homeUrl={homePath}
         mobileLinks={navigationLinks}
@@ -244,13 +249,13 @@ export default function LandingPage({
         rightSlot={<LanguageSwitcher locale={locale} />}
       />
 
-      <Section className="fade-bottom overflow-hidden pb-0 sm:pb-0 md:pb-0">
-        <Reveal className="mx-auto flex max-w-container flex-col items-center gap-10 pt-10 text-center sm:gap-12">
+      <Section className="fade-bottom overflow-hidden pt-3 pb-0 sm:pt-8 sm:pb-0 md:pt-12 md:pb-0">
+        <Reveal className="mx-auto flex max-w-container flex-col items-center gap-6 pt-0 text-center sm:gap-10 md:gap-12">
           <Badge variant="outline" className="animate-appear">
             <PhoneCallIcon className="size-4 text-brand" />
             {t.hero.badge}
           </Badge>
-          <div className="flex max-w-5xl flex-col items-center gap-5">
+          <div className="flex max-w-5xl flex-col items-center gap-4 sm:gap-5">
             <Image
               src="/artexo-logo.png"
               alt={t.hero.logoAlt}

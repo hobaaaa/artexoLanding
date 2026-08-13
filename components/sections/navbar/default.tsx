@@ -71,11 +71,11 @@ export default function Navbar({
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
       <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
       <div className="max-w-container relative mx-auto">
-        <NavbarComponent className="grid grid-cols-[1fr_auto_1fr] gap-4">
-          <NavbarLeft>
+        <NavbarComponent className="grid grid-cols-[auto_1fr_auto] gap-2 md:grid-cols-[1fr_auto_1fr] md:gap-4">
+          <NavbarLeft className="min-w-0">
             <a
               href={homeUrl}
-              className="flex items-center gap-2 text-xl font-bold"
+              className="flex shrink-0 items-center gap-2 text-xl font-bold"
             >
               {logo}
               {name}
@@ -84,13 +84,14 @@ export default function Navbar({
           <NavbarCenter>
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarCenter>
-          <NavbarRight>
+          <NavbarRight className="gap-2 md:gap-4">
             {rightSlot}
             {actions.map((action) =>
               action.isButton ? (
                 <Button
                   key={`${action.href}-${action.text}`}
                   variant={action.variant || "default"}
+                  className="hidden md:inline-flex"
                   asChild
                 >
                   <a href={action.href}>
