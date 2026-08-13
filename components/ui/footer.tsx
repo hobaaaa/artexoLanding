@@ -17,7 +17,7 @@ function FooterContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="footer-content"
       className={cn(
-        "grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr] lg:items-start",
+        "grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr] lg:items-start",
         className,
       )}
       {...props}
@@ -40,7 +40,7 @@ function FooterBottom({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="footer-bottom"
       className={cn(
-        "border-border dark:border-border/15 text-muted-foreground mt-8 flex flex-col items-center justify-between gap-4 border-t pt-4 text-xs sm:flex-row",
+        "border-border dark:border-border/15 text-muted-foreground mt-8 flex flex-col items-center justify-between gap-4 border-t pt-4 text-center text-xs sm:flex-row sm:text-left",
         className,
       )}
       {...props}

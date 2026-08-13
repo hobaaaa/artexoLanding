@@ -69,7 +69,7 @@ export default async function LocalePage({ params }: LocalePageProps) {
   }
 
   const locale = rawLocale as Locale;
-  const latestPosts = await getBlogPosts(locale, 3);
+  const latestPosts = await getBlogPosts(locale, 2);
 
   return (
     <LandingPage

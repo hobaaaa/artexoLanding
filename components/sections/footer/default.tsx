@@ -73,14 +73,14 @@ export default function FooterSection({
       <div className="max-w-container mx-auto">
         <Footer>
           <FooterContent>
-            <FooterColumn className="sm:col-span-2 lg:col-span-1">
-              <div className="flex items-center gap-2">
+            <FooterColumn className="col-span-2 items-center sm:col-span-2 sm:items-start lg:col-span-1">
+              <div className="flex items-center justify-center gap-2 sm:justify-start">
                 {logo}
                 <h3 className="text-xl font-bold">{name}</h3>
               </div>
             </FooterColumn>
             {columns.map((column) => (
-              <FooterColumn key={column.title}>
+              <FooterColumn key={column.title} className="min-w-0">
                 <h3 className="text-md pt-1 font-semibold">{column.title}</h3>
                 {column.links.map((link) => (
                   <a
